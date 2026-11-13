@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produits - Coffee Shop</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'styles/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar section-content">
+
+        <a href="{% url 'accueil' %}" class="nav-logo">
+            <h2 class="logo-text">☕ Coffee</h2>
+        </a>
+
+        <ul class="nav-menu">
+
+            <button id="menu-close-button" class="fas fa-times"></button>
+
+            <li class="nav-item">
+                <a href="{% url 'accueil' %}" class="nav-link">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'accueil' %}#about" class="nav-link">About</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'accueil' %}#menu" class="nav-link">Menu</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'accueil' %}#testimonials"
+                   class="nav-link">Testimonial</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'accueil' %}#gallerie"
+                   class="nav-link">Galerie</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'articles' %}" class="nav-link">Produits</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'accueil' %}#contact"
+                   class="nav-link">Contact</a>
+            </li>
+
+        </ul>
+
+        <button id="menu-open-button" class="fas fa-bars"></button>
+
+    </nav>
+</header>
+
+
+<main>
+
+    <section class="section-products">
+
+        <div class="section-content">
+
+            <h2 class="section-title">
+                Nos produits
+            </h2>
+
+            <div class="products-list">
+
+                {% for article in articles %}
+
+                <article class="product-card">
+
+                    <div class="product-image-wrapper">
+
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}"
+                                 alt="{{ article.titre }}"
+                                 class="product-image">
+
+                        {% elif forloop.counter == 1 %}
+                             <img src="{% static 'images/img9.png' %}"
+                                 alt="{{ article.titre }}"
+                                 class="product-image">
+
+                        {% elif forloop.counter == 2 %}
+                            <img src="{% static 'images/img10.png' %}"
+                                 alt="{{ article.titre }}"
+                                 class="product-image">
+
+                        {% elif forloop.counter == 3 %}
+                            <img src="{% static 'images/img11.png' %}"
+                                 alt="{{ article.titre }}"
+                                 class="product-image">
+
+                        {% else %}
+                            <img src="{% static 'images/img12.png' %}"
+                                 alt="{{ article.titre }}"
+                                 class="product-image">
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="product-details">
+
+                        <h3 class="product-name">
+                            {{ article.titre }}
+                        </h3>
+
+                        <p class="product-description">
+                            {{ article.resume|truncatewords:18 }}
+                        </p>
+
+
+                        <div class="product-buttons">
+
+                            <a href="{% url 'detail' article.id %}"
+                               class="button product-details-button">
+                                Détails
+                            </a>
+
+                            <a href="{% url 'accueil' %}#contact"
+                               class="button product-order-button">
+                                Commander
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                {% empty %}
+
+                <p class="empty-products">
+                    Aucun produit disponible pour le moment.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="section-footer">
+
+    <div class="section-content">
+
+        <p class="copyright-text">
+            &copy; 2026 Coffee shop
+        </p>
+
+        <div class="social-link-list">
+
+            <a href="" class="social-link">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+
+            <a href="" class="social-link">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="" class="social-link">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+
+        </div>
+
+        <p class="policy-text">
+
+            <a href="#" class="policy-link">
+                Privacy Policy
+            </a>
+
+            <span class="separator">
+                .
+            </span>
+
+            <a href="#" class="policy-link">
+                Refund Policy
+            </a>
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html> 
